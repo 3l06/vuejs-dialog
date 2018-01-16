@@ -32,7 +32,7 @@ if (isProduction) {
             minimize: true
         }),
         new WebpackShellPlugin({
-            onBuildExit: ['node src\\docs\\js\\copy-to-docs.js']
+            onBuildExit: ['node src/docs/js/copy-to-docs.js']
         })
     ])
 }

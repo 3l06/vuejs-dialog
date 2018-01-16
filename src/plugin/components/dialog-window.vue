@@ -39,6 +39,12 @@
                                 <span v-else="">{{ rightBtnText }}</span>
                             </button>
 
+                            <button v-for="button in options.buttons" :is="rightBtnComponent" @click="proceed(button.type)" :loading="loading"
+                                    :enabled="rightBtnEnabled" :options="options" :focus="rightBtnFocus">
+                                <span v-if="options.html" v-html="button.text"></span>
+                                <span v-else="">{{ button.text }}</span>
+                            </button>
+
                             <div class="dg-clear"></div>
                         </div>
                     </div>
@@ -137,11 +143,12 @@
             clickLeftBtn(){
                 this.options.reverse ? this.proceed() : this.cancel()
             },
-            proceed(){
+            proceed(val){
                 if (this.loaderEnabled) {
                     this.switchLoadingState(true)
                     this.options.promiseResolver({
                         close: this.close,
+                        type: val,
                         loading: this.switchLoadingState
                     })
                 } else {
